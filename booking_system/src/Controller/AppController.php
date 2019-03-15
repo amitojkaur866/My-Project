@@ -98,13 +98,16 @@ class AppController extends Controller
                 //pr($users);die;
                 if(!empty($users)) {
                     if($hasher->check($this->request->data('password'), $users['password'])) {
+                        $this->response->statusCode(200);
                         $response['status'] = 'success';
                         $response['data'] = $users;
                     } else {
+                        $this->response->statusCode(400);
                         $response['status'] = 'error';
                         $response['message'] = 'Invalid Username and password';
 					}
                 } else {
+                    $this->response->statusCode(400);
                     $response['status'] = 'error';
                     $response['message'] = 'Invalid Username and password';
                 }
@@ -119,30 +122,12 @@ class AppController extends Controller
 				$course = $this->Courses->find()
                 ->all();
                 if(!empty($course)) {
+                    $this->response->statusCode(200);
 					$response['status'] = 'success';
                     $response['data'] = $course;
                 }
                 
 				//response
-                $this->set('response', $response);
-                $this->set('_serialize', array('response'));
-			}  
-			if($this->request->url == 'api/users_courses.json' && $this->request->is('post')) {
-                $this->loadModel('UsersCourses');
-                
-                $usersCourse = $this->UsersCourses->newEntity();//pr($usersCourse);die;
-                $usersCourse = $this->UsersCourses->patchEntity($usersCourse, $this->request->getData());
-                $usercourse = TableRegistry::get('UsersCourses');
-                //pr($usercourse);die;
-                if ($usercourse->save($usersCourse)) {
-					$response['status'] = 'success';
-					$response['data'] = $usersCourse;
-				} else {
-					$response['status'] = 'error';
-                    $response['message'] = 'Something went wrong';
-				}
-
-                //response
                 $this->set('response', $response);
                 $this->set('_serialize', array('response'));
 			}  

@@ -1,10 +1,11 @@
 # CakePHP specific files #
 ##########################
-/config/app.php
-/config/.env
-/logs/*
-/tmp/*
-/vendor/*
+
+event-managment/config/app.php
+event-managment/config/.env
+event-managment/logs/*
+event-managment/tmp/*
+event-managment/vendor/*
 
 # OS generated files #
 ######################
@@ -29,12 +30,12 @@ Thumbs.db
 *.tmlanguage.cache
 *.tmPreferences.cache
 # Eclipse
-.settings/*
+event-managment/.settings/*
 # JetBrains, aka PHPStorm, IntelliJ IDEA
 .idea/*
 # NetBeans
-nbproject/*
+event-managment/nbproject/*
 # Visual Studio Code
-.vscode
+event-managment/.vscode
 # Sass preprocessor
-.sass-cache/
+event-managment/.sass-cache/

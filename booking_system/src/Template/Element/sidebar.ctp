@@ -22,9 +22,12 @@
             <a href="<?php echo $this->Url->build(array('controller' => 'users', 'action' => 'dashboard')); ?>"><i class="fa fa-home"></i> <span>Dashboard</span></a>
         </li>
         
-        <li <?php echo ($this->request->params['controller'] == 'Courses' && $this->request->action == 'index') || ($this->request->params['controller'] == 'Courses' && $this->request->action == 'add') ? 'class=active' : ''; ?>>
-            <a href="<?php echo $this->Url->build(array('controller' => 'courses', 'action' => 'index')); ?>"><i class="fa fa-book"></i> <span>Manage Courses</span></a>
+        <li <?php echo ($this->request->params['controller'] == 'Users' && $this->request->action == 'index') || ($this->request->params['controller'] == 'Users' && $this->request->action == 'add') || ($this->request->params['controller'] == 'UsersCourses' && $this->request->action == 'index') ? 'class=active' : ''; ?>>
+            <a href="<?php echo $this->Url->build(array('controller' => 'users', 'action' => 'index')); ?>"><i class="fa fa-users"></i> <span>Manage Users</span></a>
         </li>
+            <li <?php echo ($this->request->params['controller'] == 'Courses' && $this->request->action == 'index') || ($this->request->params['controller'] == 'Courses' && $this->request->action == 'add') ? 'class=active' : ''; ?>>
+                <a href="<?php echo $this->Url->build(array('controller' => 'courses', 'action' => 'index')); ?>"><i class="fa fa-book"></i> <span>Manage Courses</span></a>
+            </li>
             
     </ul>
 </div>

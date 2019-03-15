@@ -52,4 +52,33 @@ class UsersController extends AppController
     public function logout() {
         $this->redirect($this->Auth->logout());
     }
+    
+    public function index() {
+        $this->set('title', 'Users');
+        //$this->User->recursive = -1;
+        $this->loadModel('Users');
+        $users = $this->Users->find()
+                ->where(['Users.role !=' => 'admin'])
+                ->all()->toArray();
+        //pr($users);die;
+        $this->set(compact('users'));
+    }
+    
+    public function add() {
+        $this->loadModel('Users');
+        $User = $this->Users->newEntity();
+        if ($this->request->is('post')) {//
+            $User = $this->Users->patchEntity($User, $this->request->getData());
+            //pr($this->request->getData());
+            //pr($User);die;
+            $User->pass = $this->request->data('password');
+            if($this->Users->save($User)) {
+                $this->Flash->success(__('The User has been saved.'));
+                return $this->redirect(['action' => 'index']);
+}
+            $this->Flash->error(__('The User could not be saved. Please, try again.'));
+        }
+        $users = 1;
+        $this->set(compact('users'));
+    }
 }
