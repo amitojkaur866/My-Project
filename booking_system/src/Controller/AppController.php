@@ -100,7 +100,6 @@ class AppController extends Controller
                     if($hasher->check($this->request->data('password'), $users['password'])) {
                         $this->response->statusCode(200);
                         $response['status'] = 'success';
-                        $response['data'] = $users;
                     } else {
                         $this->response->statusCode(400);
                         $response['status'] = 'error';
@@ -119,7 +118,8 @@ class AppController extends Controller
 			}
 			if($this->request->url == 'api/courses.json') {
 				$this->loadModel('Courses');
-				$course = $this->Courses->find()
+                $course = $this->Courses->find()
+                ->select(['Courses.name', 'Courses.date','Courses.id','Courses.description'])
                 ->all();
                 if(!empty($course)) {
                     $this->response->statusCode(200);
@@ -127,7 +127,6 @@ class AppController extends Controller
                     $response['data'] = $course;
                 }
                 
-				//response
                 $this->set('response', $response);
                 $this->set('_serialize', array('response'));
 			}  
