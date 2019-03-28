@@ -100,6 +100,7 @@ class AppController extends Controller
                     if($hasher->check($this->request->data('password'), $users['password'])) {
                         $this->response->statusCode(200);
                         $response['status'] = 'success';
+                        $response['user_id'] = $users["id"];
                     } else {
                         $this->response->statusCode(400);
                         $response['status'] = 'error';
