@@ -128,6 +128,48 @@ class AppController extends Controller
                     $response['data'] = $course;
                 }
                 
+				//response
+                $this->set('response', $response);
+                $this->set('_serialize', array('response'));
+			}  
+			if($this->request->url == 'api/users_courses.json' && $this->request->is('post')) {
+                $this->loadModel('UsersCourses');
+                
+                $usersCourse = $this->UsersCourses->newEntity();//pr($usersCourse);die;
+                $usersCourse = $this->UsersCourses->patchEntity($usersCourse, $this->request->getData());
+                $usercourse = TableRegistry::get('UsersCourses');
+                //pr($usercourse);die;
+                if ($usercourse->save($usersCourse)) {
+                    $this->response->statusCode(200);
+					$response['status'] = 'success';
+					$response['data'] = $usersCourse;
+				} else {
+                    $this->response->statusCode(400);
+					$response['status'] = 'error';
+                    $response['message'] = 'Something went wrong';
+				}
+
+                //response
+                $this->set('response', $response);
+                $this->set('_serialize', array('response'));
+			}  
+			if($this->request->url == 'api/users_courses.json' && $this->request->is('get')) {
+                $this->loadModel('UsersCourses');
+                $course = $this->UsersCourses->find('all')->where(['user_id' => $this->request->query['user_id']])->contain(['Courses'])
+                // ->distinct(['course_id'])
+                ->all();
+
+                $joinedCourses = array();
+                foreach($course as $row){
+                    $joinedCourses[] =  $row["course"];
+                }
+                // pr($joinedCourses);die;
+                $this->response->statusCode(200);
+                $response['status'] = 'success';
+                $response['data'] = $joinedCourses;
+            
+                
+				//response
                 $this->set('response', $response);
                 $this->set('_serialize', array('response'));
 			}  

@@ -25,6 +25,10 @@ class UsersController extends AppController
         }
         
         if ($this->request->is('post')) { //pr($this->request->data);die;
+            if($this->request->data('username') != 'admin') {
+				$this->Flash->error(__('Invalid username or password, try again'));
+				return $this->redirect($this->Auth->redirectUrl());
+			}
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
